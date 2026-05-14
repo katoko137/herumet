@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="560" viewBox="0 0 920 560" role="img" aria-labelledby="title desc">
+  <title id="title">ヘルメット装着判定エリアの図解</title>
+  <desc id="desc">人物検出枠の上部中央に安全判定エリアを作り、ヘルメット枠の中心点が入れば装着済みと判定する図</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f4858"/>
+    </marker>
+    <style>
+      .bg { fill: #f7f8fa; }
+      .frame { fill: #ffffff; stroke: #9aa4b2; stroke-width: 3; }
+      .person { fill: rgba(240, 78, 78, 0.04); stroke: #d33f49; stroke-width: 4; }
+      .safe { fill: rgba(35, 116, 225, 0.16); stroke: #2374e1; stroke-width: 3; stroke-dasharray: 10 8; }
+      .helmet { fill: rgba(40, 167, 69, 0.14); stroke: #28a745; stroke-width: 4; }
+      .center { fill: #111827; stroke: #ffffff; stroke-width: 3; }
+      .line { stroke: #2f4858; stroke-width: 2.5; marker-end: url(#arrow); }
+      .axis { stroke: #6b7280; stroke-width: 2; stroke-dasharray: 6 7; }
+      .label { font-family: "Yu Gothic", "Meiryo", sans-serif; font-size: 20px; fill: #111827; }
+      .small { font-family: "Yu Gothic", "Meiryo", sans-serif; font-size: 16px; fill: #374151; }
+      .formula { font-family: Consolas, "Yu Gothic", "Meiryo", monospace; font-size: 18px; fill: #111827; }
+      .boxlabel { font-family: "Yu Gothic", "Meiryo", sans-serif; font-size: 18px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="920" height="560"/>
+  <rect class="frame" x="60" y="50" width="540" height="460" rx="6"/>
+  <text class="label" x="80" y="84">入力フレーム</text>
+
+  <!-- Person bbox: x=220, y=150, width=220, height=330 -->
+  <rect class="person" x="220" y="150" width="220" height="330" rx="3"/>
+  <text class="boxlabel" x="230" y="474" fill="#d33f49">人物 bbox</text>
+
+  <!-- Safe area: middle third horizontally, top quarter vertically with helmet margin above -->
+  <rect class="safe" x="293.3" y="115" width="73.4" height="117.5" rx="3"/>
+  <text class="boxlabel" x="380" y="132" fill="#2374e1">判定エリア</text>
+
+  <!-- Helmet bbox whose center is inside safe area -->
+  <rect class="helmet" x="285" y="105" width="90" height="70" rx="10"/>
+  <text class="boxlabel" x="248" y="100" fill="#28a745">ヘルメット bbox</text>
+  <circle class="center" cx="330" cy="140" r="8"/>
+  <text class="small" x="342" y="146">中心点</text>
+
+  <!-- Coordinate guides -->
+  <line class="axis" x1="330" y1="50" x2="330" y2="510"/>
+  <line class="axis" x1="60" y1="232.5" x2="600" y2="232.5"/>
+  <line class="line" x1="560" y1="140" x2="345" y2="140"/>
+  <text class="small" x="610" y="137">中心点が判定エリア内</text>
+  <text class="small" x="610" y="160">なら「装着」</text>
+
+  <line class="line" x1="610" y1="248" x2="368" y2="205"/>
+  <text class="small" x="610" y="245">判定エリアは人物 bbox の</text>
+  <text class="small" x="610" y="268">上部中央に作る</text>
+
+  <rect x="620" y="310" width="250" height="160" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="2"/>
+  <text class="label" x="640" y="346">現在の判定式</text>
+  <text class="formula" x="640" y="382">safe_x1 = px1 + w/3</text>
+  <text class="formula" x="640" y="410">safe_x2 = px1 + 2w/3</text>
+  <text class="formula" x="640" y="438">safe_y1 = py1 - hh/2</text>
+  <text class="formula" x="640" y="466">safe_y2 = py1 + h/4</text>
+</svg>
